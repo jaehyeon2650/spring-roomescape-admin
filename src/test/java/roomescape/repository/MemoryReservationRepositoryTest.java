@@ -9,12 +9,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import roomescape.model.Reservation;
 
-class ReservationRepositoryTest {
-    private ReservationRepository repository;
+class MemoryReservationRepositoryTest {
+    private MemoryReservationRepository repository;
 
     @BeforeEach
     public void setUp() {
-        repository = new ReservationRepository();
+        repository = new MemoryReservationRepository();
     }
 
     @DisplayName("초기에 3개가 저장된다.")

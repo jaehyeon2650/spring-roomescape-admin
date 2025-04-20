@@ -15,7 +15,11 @@ import roomescape.repository.ReservationRepository;
 @RestController
 public class RoomEscapeController {
 
-    private final ReservationRepository repository = new ReservationRepository();
+    private final ReservationRepository repository;
+
+    public RoomEscapeController(ReservationRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping("/reservations")
     public List<ReservationResponse> findReservations() {
