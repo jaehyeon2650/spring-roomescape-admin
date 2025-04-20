@@ -8,9 +8,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.test.annotation.DirtiesContext;
 import roomescape.model.Reservation;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class JdbcReservationRepositoryTest {
 
     @Autowired
@@ -19,7 +23,7 @@ class JdbcReservationRepositoryTest {
     @DisplayName("초기에 데이터가 존재하지 않는다.")
     @Test
     void testInitialRepository() {
-        assertThat(repository.findAll()).hasSize(0);
+        assertThat(repository.findAll()).hasSize(3);
     }
 
     @DisplayName("예약을 추가할 수 있다")
@@ -58,7 +62,7 @@ class JdbcReservationRepositoryTest {
 
         // when & then
         assertThatThrownBy(() -> repository.findById(id))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @DisplayName("id로 예약을 삭제할 수 있다.")
@@ -82,7 +86,7 @@ class JdbcReservationRepositoryTest {
 
         // when & then
         assertThatThrownBy(() -> repository.deleteById(id))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(EmptyResultDataAccessException.class);
     }
 
 }
