@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.EmptyResultDataAccessException;
 import roomescape.model.Reservation;
 
 class MemoryReservationRepositoryTest {
@@ -59,7 +60,7 @@ class MemoryReservationRepositoryTest {
 
         // when & then
         assertThatThrownBy(() -> repository.findById(id))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @DisplayName("id로 예약을 삭제할 수 있다.")
@@ -83,7 +84,7 @@ class MemoryReservationRepositoryTest {
 
         // when & then
         assertThatThrownBy(() -> repository.deleteById(id))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(EmptyResultDataAccessException.class);
     }
 
 }

@@ -1,6 +1,7 @@
 package roomescape.controller;
 
 import java.util.List;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class RoomEscapeController {
         try {
             repository.deleteById(id);
             return ResponseEntity.ok().build();
-        } catch (IllegalArgumentException e) {
+        } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.badRequest().build();
         }
     }

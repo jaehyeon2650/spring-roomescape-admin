@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.dao.EmptyResultDataAccessException;
 import roomescape.model.Reservation;
 
 public class MemoryReservationRepository implements ReservationRepository {
@@ -40,7 +41,7 @@ public class MemoryReservationRepository implements ReservationRepository {
         return reservations.stream()
                 .filter(reservation -> reservation.sameId(id))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("해당 ID가 존재하지 않습니다."));
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 ID가 존재하지 않습니다.", 1));
     }
 
     @Override
