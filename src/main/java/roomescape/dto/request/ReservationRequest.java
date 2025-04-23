@@ -3,12 +3,13 @@ package roomescape.dto.request;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.regex.Pattern;
 import roomescape.model.Reservation;
 
 public class ReservationRequest {
 
-    private static final String DATE_PATTERN = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$";
-    private static final String TIME_PATTERN = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$";
+    private static final Pattern DATE_PATTERN = Pattern.compile("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$");
+    private static final Pattern TIME_PATTERN = Pattern.compile("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
 
     private final String date;
     private final String time;
@@ -30,10 +31,10 @@ public class ReservationRequest {
     }
 
     private void validateDateAndTime(String date, String time) {
-        if (!date.matches(DATE_PATTERN)) {
+        if (!DATE_PATTERN.matcher(date).matches()) {
             throw new IllegalArgumentException("날짜는 0000-00-00 형식입니다");
         }
-        if (!time.matches(TIME_PATTERN)) {
+        if (!TIME_PATTERN.matcher(time).matches()) {
             throw new IllegalArgumentException("시간은 00:00 형식입니다");
         }
     }
