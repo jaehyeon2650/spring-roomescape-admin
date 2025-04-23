@@ -14,4 +14,9 @@ public class RoomEscapeAdminController {
     public String reservationAdminPage() {
         return "admin/reservation-legacy";
     }
+
+    @GetMapping("/admin/time")
+    public String reservationTimeAdminPage(){
+        return "admin/time";
+    }
 }
