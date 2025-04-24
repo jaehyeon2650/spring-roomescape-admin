@@ -7,7 +7,7 @@ import roomescape.model.ReservationTime;
 
 public record ReservationTimeResponse(
         Long id,
-        String time
+        String startAt
 ) {
     public static ReservationTimeResponse from(ReservationTime reservationTime) {
         LocalTime time = reservationTime.getStartAt();

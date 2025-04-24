@@ -28,7 +28,7 @@ class ReservationResponseTest {
                 () -> assertThat(response.name()).isEqualTo("코기"),
                 () -> assertThat(response.date()).isEqualTo("2000-11-02"),
                 () -> assertThat(response.time().id()).isEqualTo(1L),
-                () -> assertThat(response.time().time()).isEqualTo("10:00")
+                () -> assertThat(response.time().startAt()).isEqualTo("10:00")
         );
     }
 
@@ -51,12 +51,12 @@ class ReservationResponseTest {
                 () -> assertThat(responses.get(0).name()).isEqualTo("코기"),
                 () -> assertThat(responses.get(0).date()).isEqualTo("2000-11-02"),
                 () -> assertThat(responses.get(0).time().id()).isEqualTo(1L),
-                () -> assertThat(responses.get(0).time().time()).isEqualTo("10:00"),
+                () -> assertThat(responses.get(0).time().startAt()).isEqualTo("10:00"),
                 () -> assertThat(responses.get(1).id()).isEqualTo(2L),
                 () -> assertThat(responses.get(1).name()).isEqualTo("멍구"),
                 () -> assertThat(responses.get(1).date()).isEqualTo("2000-12-02"),
                 () -> assertThat(responses.get(1).time().id()).isEqualTo(2L),
-                () -> assertThat(responses.get(1).time().time()).isEqualTo("11:00")
+                () -> assertThat(responses.get(1).time().startAt()).isEqualTo("11:00")
         );
 
     }
