@@ -21,7 +21,7 @@ public class JdbcReservationTimeRepository implements ReservationTimeRepository 
     }
 
     @Override
-    public Long add(ReservationTime reservationTime) {
+    public ReservationTime add(ReservationTime reservationTime) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String time = reservationTime.getStartAt().toString();
         jdbcTemplate.update((connection) -> {
@@ -30,7 +30,7 @@ public class JdbcReservationTimeRepository implements ReservationTimeRepository 
             ps.setString(1, time);
             return ps;
         }, keyHolder);
-        return keyHolder.getKey().longValue();
+        return reservationTime.toEntity(keyHolder.getKey().longValue());
     }
 
     @Override
@@ -58,7 +58,7 @@ public class JdbcReservationTimeRepository implements ReservationTimeRepository 
             Long id = rs.getLong("id");
             String startAt = rs.getString("start_at");
             LocalTime time = LocalTime.parse(startAt);
-            return new ReservationTime(id, time);
+            return ReservationTime.createReservation(id, time);
         };
     }
 }

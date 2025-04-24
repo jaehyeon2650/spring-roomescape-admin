@@ -21,6 +21,7 @@ class JdbcReservationTimeRepositoryTest {
 
     @BeforeEach
     void beforeEach() {
+        jdbcTemplate.execute("DROP TABLE reservation IF EXISTS");
         jdbcTemplate.execute("DROP TABLE reservation_time IF EXISTS");
         jdbcTemplate.execute("CREATE TABLE reservation_time("
                 + " id BIGINT NOT NULL AUTO_INCREMENT,"
@@ -35,9 +36,9 @@ class JdbcReservationTimeRepositoryTest {
         // given
         ReservationTime time = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
         // when
-        Long id = repository.add(time);
+        ReservationTime timeEntity = repository.add(time);
         // then
-        ReservationTime findTime = repository.findById(id);
+        ReservationTime findTime = repository.findById(timeEntity.getId());
         assertThat(findTime).isNotNull();
         assertThat(findTime.getStartAt()).isEqualTo(time.getStartAt());
     }
@@ -51,9 +52,9 @@ class JdbcReservationTimeRepositoryTest {
         ReservationTime time3 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(10, 0));
         repository.add(time1);
         repository.add(time2);
-        Long time3Id = repository.add(time3);
+        ReservationTime time3Entity = repository.add(time3);
         // when
-        ReservationTime findTime = repository.findById(time3Id);
+        ReservationTime findTime = repository.findById(time3Entity.getId());
         // then
         assertThat(findTime.getStartAt()).isEqualTo(time3.getStartAt());
     }
@@ -83,9 +84,9 @@ class JdbcReservationTimeRepositoryTest {
         ReservationTime time3 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(10, 0));
         repository.add(time1);
         repository.add(time2);
-        Long time3Id = repository.add(time3);
+        ReservationTime time3Entity = repository.add(time3);
         // when
-        repository.deleteById(time3Id);
+        repository.deleteById(time3Entity.getId());
         // then
         List<ReservationTime> allReservationTimes = repository.findAllReservationTimes();
         assertThat(allReservationTimes).hasSize(2);
