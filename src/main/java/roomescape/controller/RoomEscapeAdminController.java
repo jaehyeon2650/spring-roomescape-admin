@@ -12,7 +12,7 @@ public class RoomEscapeAdminController {
 
     @GetMapping("/admin/reservation")
     public String reservationAdminPage() {
-        return "admin/reservation-legacy";
+        return "admin/reservation";
     }
 
     @GetMapping("/admin/time")
