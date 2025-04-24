@@ -41,6 +41,10 @@ public class Reservation {
         return reservationTime;
     }
 
+    public Reservation toEntity(Long id) {
+        return new Reservation(id, this.name, this.reservationDate, this.reservationTime);
+    }
+
     public boolean sameId(Long id) {
         return this.id.equals(id);
     }

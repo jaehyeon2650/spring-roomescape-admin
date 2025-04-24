@@ -3,12 +3,15 @@ package roomescape.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.EmptyResultDataAccessException;
 import roomescape.model.Reservation;
+import roomescape.model.ReservationTime;
 
 class MemoryReservationRepositoryTest {
     private MemoryReservationRepository repository;
@@ -21,59 +24,36 @@ class MemoryReservationRepositoryTest {
     @DisplayName("초기에 3개가 저장된다.")
     @Test
     void testInitialRepository() {
-        assertThat(repository.findAll()).hasSize(3);
+        assertThat(repository.findAll()).hasSize(0);
     }
 
     @DisplayName("예약을 추가할 수 있다")
     @Test
     void addTest() {
         // given
-        Reservation reservation = Reservation.createReservationWithoutId("멍구", LocalDateTime.of(2024, 4, 4, 10, 0));
+        ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10,0));
+        Reservation reservation = Reservation.createReservationWithoutId("멍구", LocalDate.of(2000,11,2),reservationTime);
 
         // when
         repository.add(reservation);
 
         // then
-        assertThat(repository.findAll()).hasSize(4);
-    }
-
-    @DisplayName("id로 예약을 찾을 수 있다.")
-    @Test
-    void findByIdTest() {
-        // given
-        Long id = 1L;
-
-        // when
-        Reservation reservation = repository.findById(id);
-
-        // then
-        assertThat(reservation.getId()).isEqualTo(1L);
-        assertThat(reservation.getName()).isEqualTo("브라운");
-        assertThat(reservation.getReservationTime()).isEqualTo(LocalDateTime.of(2024, 4, 1, 10, 0));
-    }
-
-    @DisplayName("없는 id로 찾으려고 할 때 예외가 발생한다.")
-    @Test
-    void findByIdTest_exception() {
-        // given
-        Long id = 0L;
-
-        // when & then
-        assertThatThrownBy(() -> repository.findById(id))
-                .isInstanceOf(EmptyResultDataAccessException.class);
+        assertThat(repository.findAll()).hasSize(1);
     }
 
     @DisplayName("id로 예약을 삭제할 수 있다.")
     @Test
     void deleteByIdTest() {
         // given
-        Long id = 1L;
+        ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10,0));
+        Reservation reservation = Reservation.createReservationWithoutId("멍구", LocalDate.of(2000,11,2),reservationTime);
+        Reservation reservationEntity = repository.add(reservation);
 
         // when
-        repository.deleteById(id);
+        repository.deleteById(reservationEntity.getId());
 
         // then
-        assertThat(repository.findAll()).hasSize(2);
+        assertThat(repository.findAll()).hasSize(0);
     }
 
     @DisplayName("없는 id로 삭제하려고 할 때 예외가 발생한다.")
