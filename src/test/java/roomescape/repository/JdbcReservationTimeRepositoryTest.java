@@ -31,29 +31,29 @@ class JdbcReservationTimeRepositoryTest {
 
     @Test
     @DisplayName("reservationTime 추가 테스트")
-    void addReservationTimeTest() {
+    void addTest() {
         // given
         ReservationTime time = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
         // when
-        Long id = repository.addReservationTime(time);
+        Long id = repository.add(time);
         // then
-        ReservationTime findTime = repository.findReservationTimeById(id);
+        ReservationTime findTime = repository.findById(id);
         assertThat(findTime).isNotNull();
         assertThat(findTime.getStartAt()).isEqualTo(time.getStartAt());
     }
 
     @Test
     @DisplayName("reservationTime 조회 테스트")
-    void findReservationTimeById() {
+    void findById() {
         // given
         ReservationTime time1 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
         ReservationTime time2 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(12, 0));
         ReservationTime time3 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(10, 0));
-        repository.addReservationTime(time1);
-        repository.addReservationTime(time2);
-        Long time3Id = repository.addReservationTime(time3);
+        repository.add(time1);
+        repository.add(time2);
+        Long time3Id = repository.add(time3);
         // when
-        ReservationTime findTime = repository.findReservationTimeById(time3Id);
+        ReservationTime findTime = repository.findById(time3Id);
         // then
         assertThat(findTime.getStartAt()).isEqualTo(time3.getStartAt());
     }
@@ -65,9 +65,9 @@ class JdbcReservationTimeRepositoryTest {
         ReservationTime time1 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
         ReservationTime time2 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(12, 0));
         ReservationTime time3 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(10, 0));
-        repository.addReservationTime(time1);
-        repository.addReservationTime(time2);
-        repository.addReservationTime(time3);
+        repository.add(time1);
+        repository.add(time2);
+        repository.add(time3);
         // when
         List<ReservationTime> allReservationTimes = repository.findAllReservationTimes();
         // then
@@ -81,9 +81,9 @@ class JdbcReservationTimeRepositoryTest {
         ReservationTime time1 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
         ReservationTime time2 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(12, 0));
         ReservationTime time3 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(10, 0));
-        repository.addReservationTime(time1);
-        repository.addReservationTime(time2);
-        Long time3Id = repository.addReservationTime(time3);
+        repository.add(time1);
+        repository.add(time2);
+        Long time3Id = repository.add(time3);
         // when
         repository.deleteById(time3Id);
         // then

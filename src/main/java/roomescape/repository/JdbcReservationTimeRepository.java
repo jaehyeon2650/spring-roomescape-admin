@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import roomescape.model.ReservationTime;
 
 @Repository
-public class JdbcReservationTimeRepository {
+public class JdbcReservationTimeRepository implements ReservationTimeRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -20,7 +20,8 @@ public class JdbcReservationTimeRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Long addReservationTime(ReservationTime reservationTime) {
+    @Override
+    public Long add(ReservationTime reservationTime) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String time = reservationTime.getStartAt().toString();
         jdbcTemplate.update((connection) -> {
@@ -32,15 +33,18 @@ public class JdbcReservationTimeRepository {
         return keyHolder.getKey().longValue();
     }
 
-    public ReservationTime findReservationTimeById(Long id) {
+    @Override
+    public ReservationTime findById(Long id) {
         return jdbcTemplate.queryForObject("select * from reservation_time where id = ?", reservationTimeRowMapper(),
                 id);
     }
 
+    @Override
     public List<ReservationTime> findAllReservationTimes() {
         return jdbcTemplate.query("select * from reservation_time", reservationTimeRowMapper());
     }
 
+    @Override
     public void deleteById(Long id) {
         int deleteCount = jdbcTemplate.update("delete from reservation_time where id = ?", id);
 
