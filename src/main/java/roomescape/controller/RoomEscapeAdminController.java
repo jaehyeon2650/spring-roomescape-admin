@@ -16,7 +16,7 @@ public class RoomEscapeAdminController {
     }
 
     @GetMapping("/admin/time")
-    public String reservationTimeAdminPage(){
+    public String reservationTimeAdminPage() {
         return "admin/time";
     }
 }

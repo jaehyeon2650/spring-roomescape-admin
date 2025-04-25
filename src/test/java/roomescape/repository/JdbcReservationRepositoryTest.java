@@ -9,23 +9,41 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
+import roomescape.controller.RoomEscapeController;
 import roomescape.model.Reservation;
 import roomescape.model.ReservationTime;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@JdbcTest
 class JdbcReservationRepositoryTest {
 
-    @Autowired
     private ReservationRepository repository;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @BeforeEach
+    void beforeEach(){
+        jdbcTemplate.execute("DROP TABLE reservation IF EXISTS");
+        jdbcTemplate.execute("DROP TABLE reservation_time IF EXISTS");
+        jdbcTemplate.execute("CREATE TABLE reservation_time("
+                + " id BIGINT NOT NULL AUTO_INCREMENT,"
+                + " start_at VARCHAR(255) NOT NULL,"
+                + " PRIMARY KEY (id));");
+        jdbcTemplate.execute("CREATE TABLE reservation("
+                + " id BIGINT NOT NULL AUTO_INCREMENT,"
+                + " name VARCHAR(255) NOT NULL,"
+                + " date VARCHAR(255) NOT NULL,"
+                + " time_id BIGINT NOT NULL,"
+                + " PRIMARY KEY (id),"
+                + " FOREIGN KEY (time_id) references reservation_time(id))");
+        repository=new JdbcReservationRepository(jdbcTemplate);
+    }
 
     @Test
     @DisplayName("초기에 데이터가 존재하지 않는다.")

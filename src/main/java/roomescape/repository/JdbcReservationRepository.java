@@ -2,7 +2,6 @@ package roomescape.repository;
 
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -77,7 +76,7 @@ public class JdbcReservationRepository implements ReservationRepository {
             LocalDate reservationDate = LocalDate.parse(date);
             LocalTime reservationTime = LocalTime.parse(startAt);
             ReservationTime time = ReservationTime.createReservation(timeId, reservationTime);
-            return Reservation.createReservationWithId(reservationId,name,reservationDate,time);
+            return Reservation.createReservationWithId(reservationId, name, reservationDate, time);
         };
     }
 }

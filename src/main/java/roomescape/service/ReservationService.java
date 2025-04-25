@@ -9,7 +9,6 @@ import roomescape.dto.response.ReservationResponse;
 import roomescape.dto.response.ReservationTimeResponse;
 import roomescape.model.Reservation;
 import roomescape.model.ReservationTime;
-import roomescape.repository.JdbcReservationTimeRepository;
 import roomescape.repository.ReservationRepository;
 import roomescape.repository.ReservationTimeRepository;
 
@@ -20,7 +19,7 @@ public class ReservationService {
     private final ReservationTimeRepository timeRepository;
 
     public ReservationService(ReservationRepository reservationRepository,
-                              JdbcReservationTimeRepository timeRepository) {
+                              ReservationTimeRepository timeRepository) {
         this.reservationRepository = reservationRepository;
         this.timeRepository = timeRepository;
     }
@@ -33,25 +32,25 @@ public class ReservationService {
         return ReservationResponse.from(reservationEntity);
     }
 
-    public List<ReservationResponse> findAllReservations(){
+    public List<ReservationResponse> findAllReservations() {
         return ReservationResponse.from(reservationRepository.findAll());
     }
 
-    public void deleteReservation(Long id){
+    public void deleteReservation(Long id) {
         reservationRepository.deleteById(id);
     }
 
-    public ReservationTimeResponse createReservationTime(ReservationTimeAddRequest request){
+    public ReservationTimeResponse createReservationTime(ReservationTimeAddRequest request) {
         ReservationTime time = ReservationTime.createReservationTimeWithoutId(LocalTime.parse(request.getStartAt()));
         ReservationTime timeEntity = timeRepository.add(time);
         return ReservationTimeResponse.from(timeEntity);
     }
 
-    public List<ReservationTimeResponse> findAllReservationTimes(){
+    public List<ReservationTimeResponse> findAllReservationTimes() {
         return ReservationTimeResponse.from(timeRepository.findAllReservationTimes());
     }
 
-    public void deleteReservationTime(Long id){
+    public void deleteReservationTime(Long id) {
         timeRepository.deleteById(id);
     }
 }

@@ -15,7 +15,7 @@ public class ReservationTimeAddRequest {
         this.startAt = startAt;
     }
 
-    public ReservationTime dtoToReservationTimeWithoutId(){
+    public ReservationTime dtoToReservationTimeWithoutId() {
         return ReservationTime.createReservationTimeWithoutId(LocalTime.parse(startAt));
     }
 
