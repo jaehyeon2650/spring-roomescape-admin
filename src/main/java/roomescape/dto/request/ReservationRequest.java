@@ -1,40 +1,38 @@
 package roomescape.dto.request;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import roomescape.model.Reservation;
+import java.util.regex.Pattern;
 
 public class ReservationRequest {
 
-    private static final String DATE_PATTERN = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$";
-    private static final String TIME_PATTERN = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$";
+    private static final Pattern DATE_PATTERN = Pattern.compile("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$");
 
     private final String date;
-    private final String time;
     private final String name;
+    private final Long timeId;
 
-    public ReservationRequest(String date, String time, String name) {
-        validateDateAndTime(date, time);
+    public ReservationRequest(String date, String name, Long timeId) {
+        validateDateAndTime(date);
         this.date = date;
-        this.time = time;
+        this.timeId = timeId;
         this.name = name;
     }
 
-    public Reservation dtoToReservationWithoutId() {
-        LocalDate date = LocalDate.parse(this.date);
-        LocalTime time = LocalTime.parse(this.time);
-
-        LocalDateTime reservationTime = LocalDateTime.of(date, time);
-        return Reservation.createReservationWithoutId(name, reservationTime);
-    }
-
-    private void validateDateAndTime(String date, String time) {
-        if (!date.matches(DATE_PATTERN)) {
+    private void validateDateAndTime(String date) {
+        if (!DATE_PATTERN.matcher(date).matches()) {
             throw new IllegalArgumentException("날짜는 0000-00-00 형식입니다");
         }
-        if (!time.matches(TIME_PATTERN)) {
-            throw new IllegalArgumentException("시간은 00:00 형식입니다");
-        }
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.parse(date);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Long getTimeId() {
+        return timeId;
     }
 }
