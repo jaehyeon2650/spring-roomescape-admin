@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.EmptyResultDataAccessException;
 import roomescape.dto.request.ReservationRequest;
-import roomescape.dto.request.ReservationTimeAddRequest;
+import roomescape.dto.request.ReservationTimeRequest;
 import roomescape.dto.response.ReservationResponse;
 import roomescape.dto.response.ReservationTimeResponse;
 import roomescape.model.ReservationTime;
@@ -106,7 +106,7 @@ class ReservationServiceTest {
     @DisplayName("정상적으로 예약 시간을 저장하고 dto를 반환한다.")
     void createReservationTimeTest() {
         // given
-        ReservationTimeAddRequest request = new ReservationTimeAddRequest("09:00");
+        ReservationTimeRequest request = new ReservationTimeRequest("09:00");
         // when
         ReservationTimeResponse reservationTime = reservationService.createReservationTime(request);
         // then
@@ -138,7 +138,7 @@ class ReservationServiceTest {
     @DisplayName("정상적인 요청에 대해 삭제를 진행한다.")
     void deleteReservationTimeTest() {
         // given
-        ReservationTimeAddRequest request = new ReservationTimeAddRequest("09:00");
+        ReservationTimeRequest request = new ReservationTimeRequest("09:00");
         ReservationTimeResponse reservationTime = reservationService.createReservationTime(request);
         // when
         reservationService.deleteReservationTime(reservationTime.id());

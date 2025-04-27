@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import roomescape.dto.request.ReservationRequest;
-import roomescape.dto.request.ReservationTimeAddRequest;
+import roomescape.dto.request.ReservationTimeRequest;
 import roomescape.dto.response.ReservationResponse;
 import roomescape.dto.response.ReservationTimeResponse;
 import roomescape.model.Reservation;
@@ -40,7 +40,7 @@ public class ReservationService {
         reservationRepository.deleteById(id);
     }
 
-    public ReservationTimeResponse createReservationTime(ReservationTimeAddRequest request) {
+    public ReservationTimeResponse createReservationTime(ReservationTimeRequest request) {
         ReservationTime time = ReservationTime.createReservationTimeWithoutId(LocalTime.parse(request.getStartAt()));
         ReservationTime timeEntity = timeRepository.create(time);
         return ReservationTimeResponse.from(timeEntity);

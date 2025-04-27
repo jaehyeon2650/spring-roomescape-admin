@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import roomescape.dto.request.ReservationRequest;
-import roomescape.dto.request.ReservationTimeAddRequest;
+import roomescape.dto.request.ReservationTimeRequest;
 import roomescape.dto.response.ReservationResponse;
 import roomescape.dto.response.ReservationTimeResponse;
 import roomescape.service.ReservationService;
@@ -45,7 +45,7 @@ public class RoomEscapeController {
     }
 
     @PostMapping("/times")
-    public ReservationTimeResponse createReservationTime(@RequestBody ReservationTimeAddRequest request) {
+    public ReservationTimeResponse createReservationTime(@RequestBody ReservationTimeRequest request) {
         return reservationService.createReservationTime(request);
     }
 
