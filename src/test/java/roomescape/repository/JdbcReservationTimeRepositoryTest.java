@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalTime;
 import java.util.List;
+import javax.sql.DataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,8 @@ class JdbcReservationTimeRepositoryTest {
     private JdbcReservationTimeRepository repository;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private DataSource dataSource;
 
     @BeforeEach
     void beforeEach() {
@@ -31,7 +34,7 @@ class JdbcReservationTimeRepositoryTest {
                 );
                 """);
 
-        repository = new JdbcReservationTimeRepository(jdbcTemplate);
+        repository = new JdbcReservationTimeRepository(dataSource);
     }
 
     @Test

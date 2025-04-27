@@ -1,13 +1,13 @@
 package roomescape.repository;
 
-import java.sql.PreparedStatement;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
+import javax.sql.DataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import roomescape.model.ReservationTime;
 
@@ -15,22 +15,21 @@ import roomescape.model.ReservationTime;
 public class JdbcReservationTimeRepository implements ReservationTimeRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final SimpleJdbcInsert simpleJdbcInsert;
 
-    public JdbcReservationTimeRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public JdbcReservationTimeRepository(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("RESERVATION_TIME")
+                .usingGeneratedKeyColumns("id");
     }
 
     @Override
     public ReservationTime create(ReservationTime reservationTime) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
         String time = reservationTime.getStartAt().toString();
-        jdbcTemplate.update((connection) -> {
-            PreparedStatement ps = connection.prepareStatement(
-                    "insert into reservation_time(start_at) values(?)", new String[]{"id"});
-            ps.setString(1, time);
-            return ps;
-        }, keyHolder);
-        return reservationTime.assignId(keyHolder.getKey().longValue());
+        Map<String, String> params = Map.of("start_at", time);
+        long id = simpleJdbcInsert.executeAndReturnKey(params).longValue();
+        return reservationTime.assignId(id);
     }
 
     @Override

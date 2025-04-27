@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import javax.sql.DataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ class JdbcReservationRepositoryTest {
 
     private ReservationRepository repository;
 
+    @Autowired
+    private DataSource dataSource;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -45,7 +48,7 @@ class JdbcReservationRepositoryTest {
                     FOREIGN KEY (time_id) REFERENCES reservation_time(id)
                 );
                 """);
-        repository = new JdbcReservationRepository(jdbcTemplate);
+        repository = new JdbcReservationRepository(dataSource);
     }
 
     @Test
