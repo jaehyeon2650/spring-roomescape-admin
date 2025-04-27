@@ -24,14 +24,16 @@ public class JdbcReservationRepository implements ReservationRepository {
 
     @Override
     public List<Reservation> findAll() {
-        return jdbcTemplate.query("select r.id as reservation_id,"
-                + "r.name as name,"
-                + "r.date as date,"
-                + "t.id as time_id,"
-                + "t.start_at as start_at "
-                + "from reservation r "
-                + "inner join reservation_time t "
-                + "on r.time_id = t.id ", reservationRowMapper());
+        return jdbcTemplate.query("""
+                   select r.id as reservation_id,
+                          r.name as name,
+                          r.date as date,
+                          t.id as time_id,
+                          t.start_at as start_at
+                   from reservation r
+                   inner join reservation_time t
+                   on r.time_id = t.id
+                """, reservationRowMapper());
     }
 
     @Override

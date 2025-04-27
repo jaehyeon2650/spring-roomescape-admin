@@ -23,10 +23,14 @@ class JdbcReservationTimeRepositoryTest {
     void beforeEach() {
         jdbcTemplate.execute("DROP TABLE reservation IF EXISTS");
         jdbcTemplate.execute("DROP TABLE reservation_time IF EXISTS");
-        jdbcTemplate.execute("CREATE TABLE reservation_time("
-                + " id BIGINT NOT NULL AUTO_INCREMENT,"
-                + " start_at VARCHAR(255) NOT NULL,"
-                + " PRIMARY KEY (id));");
+        jdbcTemplate.execute("""
+                CREATE TABLE reservation_time(
+                    id BIGINT NOT NULL AUTO_INCREMENT,
+                    start_at VARCHAR(255) NOT NULL,
+                    PRIMARY KEY (id)
+                );
+                """);
+
         repository = new JdbcReservationTimeRepository(jdbcTemplate);
     }
 
