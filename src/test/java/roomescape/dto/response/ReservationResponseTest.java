@@ -23,13 +23,8 @@ class ReservationResponseTest {
         // when
         ReservationResponse response = ReservationResponse.from(reservation);
         // then
-        assertAll(
-                () -> assertThat(response.id()).isEqualTo(1L),
-                () -> assertThat(response.name()).isEqualTo("코기"),
-                () -> assertThat(response.date()).isEqualTo("2000-11-02"),
-                () -> assertThat(response.time().id()).isEqualTo(1L),
-                () -> assertThat(response.time().startAt()).isEqualTo("10:00")
-        );
+        assertThat(response).isEqualTo(
+                new ReservationResponse(1L, "코기", "2000-11-02", new ReservationTimeResponse(1L, "10:00")));
     }
 
     @Test
@@ -47,16 +42,10 @@ class ReservationResponseTest {
         List<ReservationResponse> responses = ReservationResponse.from(reservations);
         // then
         assertAll(
-                () -> assertThat(responses.get(0).id()).isEqualTo(1L),
-                () -> assertThat(responses.get(0).name()).isEqualTo("코기"),
-                () -> assertThat(responses.get(0).date()).isEqualTo("2000-11-02"),
-                () -> assertThat(responses.get(0).time().id()).isEqualTo(1L),
-                () -> assertThat(responses.get(0).time().startAt()).isEqualTo("10:00"),
-                () -> assertThat(responses.get(1).id()).isEqualTo(2L),
-                () -> assertThat(responses.get(1).name()).isEqualTo("멍구"),
-                () -> assertThat(responses.get(1).date()).isEqualTo("2000-12-02"),
-                () -> assertThat(responses.get(1).time().id()).isEqualTo(2L),
-                () -> assertThat(responses.get(1).time().startAt()).isEqualTo("11:00")
+                () -> assertThat(responses.get(0)).isEqualTo(
+                        new ReservationResponse(1L, "코기", "2000-11-02", new ReservationTimeResponse(1L, "10:00"))),
+                () -> assertThat(responses.get(1)).isEqualTo(
+                        new ReservationResponse(2L, "멍구", "2000-12-02", new ReservationTimeResponse(2L, "11:00")))
         );
 
     }

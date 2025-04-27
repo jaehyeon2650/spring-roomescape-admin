@@ -17,7 +17,6 @@ class ReservationTimeResponseTest {
         // when
         ReservationTimeResponse response = ReservationTimeResponse.from(reservation);
         // then
-        assertThat(response.startAt()).isEqualTo("10:00");
-        assertThat(response.id()).isEqualTo(1L);
+        assertThat(response).isEqualTo(new ReservationTimeResponse(1L,"10:00"));
     }
 }
