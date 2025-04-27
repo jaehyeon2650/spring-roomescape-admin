@@ -23,7 +23,7 @@ public class FakeReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public Reservation add(Reservation reservation) {
+    public Reservation create(Reservation reservation) {
         long currentIndex = index.incrementAndGet();
         Reservation reservationEntity = reservation.toEntity(currentIndex);
         reservations.add(reservationEntity);

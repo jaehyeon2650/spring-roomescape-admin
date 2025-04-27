@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,13 +28,13 @@ class MemoryReservationRepositoryTest {
 
     @DisplayName("예약을 추가할 수 있다")
     @Test
-    void addTest() {
+    void createTest() {
         // given
         ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10,0));
         Reservation reservation = Reservation.createReservationWithoutId("멍구", LocalDate.of(2000,11,2),reservationTime);
 
         // when
-        repository.add(reservation);
+        repository.create(reservation);
 
         // then
         assertThat(repository.findAll()).hasSize(1);
@@ -47,7 +46,7 @@ class MemoryReservationRepositoryTest {
         // given
         ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10,0));
         Reservation reservation = Reservation.createReservationWithoutId("멍구", LocalDate.of(2000,11,2),reservationTime);
-        Reservation reservationEntity = repository.add(reservation);
+        Reservation reservationEntity = repository.create(reservation);
 
         // when
         repository.deleteById(reservationEntity.getId());

@@ -30,7 +30,7 @@ public class RoomEscapeController {
     }
 
     @PostMapping("/reservations")
-    public ReservationResponse addReservation(@RequestBody ReservationRequest request) {
+    public ReservationResponse createReservation(@RequestBody ReservationRequest request) {
         return reservationService.createReservation(request);
     }
 
@@ -45,7 +45,7 @@ public class RoomEscapeController {
     }
 
     @PostMapping("/times")
-    public ReservationTimeResponse addReservationTime(@RequestBody ReservationTimeAddRequest request) {
+    public ReservationTimeResponse createReservationTime(@RequestBody ReservationTimeAddRequest request) {
         return reservationService.createReservationTime(request);
     }
 

@@ -28,7 +28,7 @@ public class ReservationService {
         ReservationTime reservationTime = timeRepository.findById(request.getTimeId());
         Reservation reservationWithoutId = Reservation.createReservationWithoutId(request.getName(), request.getDate(),
                 reservationTime);
-        Reservation reservationEntity = reservationRepository.add(reservationWithoutId);
+        Reservation reservationEntity = reservationRepository.create(reservationWithoutId);
         return ReservationResponse.from(reservationEntity);
     }
 
@@ -42,12 +42,12 @@ public class ReservationService {
 
     public ReservationTimeResponse createReservationTime(ReservationTimeAddRequest request) {
         ReservationTime time = ReservationTime.createReservationTimeWithoutId(LocalTime.parse(request.getStartAt()));
-        ReservationTime timeEntity = timeRepository.add(time);
+        ReservationTime timeEntity = timeRepository.create(time);
         return ReservationTimeResponse.from(timeEntity);
     }
 
     public List<ReservationTimeResponse> findAllReservationTimes() {
-        return ReservationTimeResponse.from(timeRepository.findAllReservationTimes());
+        return ReservationTimeResponse.from(timeRepository.findAll());
     }
 
     public void deleteReservationTime(Long id) {

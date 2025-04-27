@@ -21,7 +21,7 @@ public class JdbcReservationTimeRepository implements ReservationTimeRepository 
     }
 
     @Override
-    public ReservationTime add(ReservationTime reservationTime) {
+    public ReservationTime create(ReservationTime reservationTime) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String time = reservationTime.getStartAt().toString();
         jdbcTemplate.update((connection) -> {
@@ -40,7 +40,7 @@ public class JdbcReservationTimeRepository implements ReservationTimeRepository 
     }
 
     @Override
-    public List<ReservationTime> findAllReservationTimes() {
+    public List<ReservationTime> findAll() {
         return jdbcTemplate.query("select * from reservation_time", reservationTimeRowMapper());
     }
 

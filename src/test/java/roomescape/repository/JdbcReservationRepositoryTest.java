@@ -10,12 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.DirtiesContext;
-import roomescape.controller.RoomEscapeController;
 import roomescape.model.Reservation;
 import roomescape.model.ReservationTime;
 
@@ -53,7 +49,7 @@ class JdbcReservationRepositoryTest {
 
     @Test
     @DisplayName("예약을 추가할 수 있다")
-    void addTest() {
+    void createTest() {
         // given
         jdbcTemplate.update("insert into reservation_time(id,start_at) values(?,?)",1L,"10:00");
         ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10, 0));
@@ -61,7 +57,7 @@ class JdbcReservationRepositoryTest {
                 reservationTime);
 
         // when
-        repository.add(reservation);
+        repository.create(reservation);
 
         // then
         assertThat(repository.findAll()).hasSize(1);
@@ -75,7 +71,7 @@ class JdbcReservationRepositoryTest {
         ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10, 0));
         Reservation reservation = Reservation.createReservationWithoutId("멍구", LocalDate.of(2000, 11, 2),
                 reservationTime);
-        Reservation reservationEntity = repository.add(reservation);
+        Reservation reservationEntity = repository.create(reservation);
 
         // when
         repository.deleteById(reservationEntity.getId());

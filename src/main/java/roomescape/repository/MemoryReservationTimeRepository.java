@@ -18,7 +18,7 @@ public class MemoryReservationTimeRepository implements ReservationTimeRepositor
     }
 
     @Override
-    public ReservationTime add(ReservationTime reservationTime) {
+    public ReservationTime create(ReservationTime reservationTime) {
         long currentIndex = index.incrementAndGet();
         ReservationTime reservationTimeEntity = reservationTime.toEntity(currentIndex);
         reservationTimes.add(reservationTimeEntity);
@@ -34,7 +34,7 @@ public class MemoryReservationTimeRepository implements ReservationTimeRepositor
     }
 
     @Override
-    public List<ReservationTime> findAllReservationTimes() {
+    public List<ReservationTime> findAll() {
         return Collections.unmodifiableList(reservationTimes);
     }
 
