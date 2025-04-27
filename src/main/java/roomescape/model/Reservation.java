@@ -41,7 +41,7 @@ public class Reservation {
         return reservationTime;
     }
 
-    public Reservation toEntity(Long id) {
+    public Reservation assignId(Long id) {
         return new Reservation(id, this.name, this.reservationDate, this.reservationTime);
     }
 

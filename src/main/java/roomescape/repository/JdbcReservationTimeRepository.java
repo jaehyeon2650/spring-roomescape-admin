@@ -30,7 +30,7 @@ public class JdbcReservationTimeRepository implements ReservationTimeRepository 
             ps.setString(1, time);
             return ps;
         }, keyHolder);
-        return reservationTime.toEntity(keyHolder.getKey().longValue());
+        return reservationTime.assignId(keyHolder.getKey().longValue());
     }
 
     @Override

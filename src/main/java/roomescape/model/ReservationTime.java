@@ -19,7 +19,7 @@ public class ReservationTime {
         return new ReservationTime(id, startAt);
     }
 
-    public ReservationTime toEntity(Long id) {
+    public ReservationTime assignId(Long id) {
         return new ReservationTime(id, this.startAt);
     }
 

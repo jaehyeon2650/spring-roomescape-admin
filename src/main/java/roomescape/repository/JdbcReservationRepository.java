@@ -54,7 +54,7 @@ public class JdbcReservationRepository implements ReservationRepository {
             return ps;
         }, keyHolder);
 
-        return reservation.toEntity(keyHolder.getKey().longValue());
+        return reservation.assignId(keyHolder.getKey().longValue());
     }
 
     @Override
