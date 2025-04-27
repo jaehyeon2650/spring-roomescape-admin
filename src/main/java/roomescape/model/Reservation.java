@@ -15,13 +15,13 @@ public class Reservation {
         this.reservationTime = reservationTime;
     }
 
-    public static Reservation createReservationWithoutId(String name, LocalDate reservationDate,
-                                                         ReservationTime reservationTime) {
+    public static Reservation of(String name, LocalDate reservationDate,
+                                 ReservationTime reservationTime) {
         return new Reservation(null, name, reservationDate, reservationTime);
     }
 
-    public static Reservation createReservationWithId(Long id, String name, LocalDate reservationDate,
-                                                      ReservationTime reservationTime) {
+    public static Reservation of(Long id, String name, LocalDate reservationDate,
+                                 ReservationTime reservationTime) {
         return new Reservation(id, name, reservationDate, reservationTime);
     }
 

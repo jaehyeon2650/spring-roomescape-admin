@@ -26,7 +26,7 @@ public class ReservationService {
 
     public ReservationResponse createReservation(ReservationRequest request) {
         ReservationTime reservationTime = timeRepository.findById(request.getTimeId());
-        Reservation reservationWithoutId = Reservation.createReservationWithoutId(request.getName(), request.getDate(),
+        Reservation reservationWithoutId = Reservation.of(request.getName(), request.getDate(),
                 reservationTime);
         Reservation reservationEntity = reservationRepository.create(reservationWithoutId);
         return ReservationResponse.from(reservationEntity);
@@ -41,7 +41,7 @@ public class ReservationService {
     }
 
     public ReservationTimeResponse createReservationTime(ReservationTimeRequest request) {
-        ReservationTime time = ReservationTime.createReservationTimeWithoutId(LocalTime.parse(request.getStartAt()));
+        ReservationTime time = ReservationTime.of(LocalTime.parse(request.getStartAt()));
         ReservationTime timeEntity = timeRepository.create(time);
         return ReservationTimeResponse.from(timeEntity);
     }

@@ -13,7 +13,7 @@ class ReservationTimeResponseTest {
     @DisplayName("DTO 생성 테스트")
     void createDtoTest() {
         // given
-        ReservationTime reservation = ReservationTime.createReservation(1L, LocalTime.of(10, 0));
+        ReservationTime reservation = ReservationTime.of(1L, LocalTime.of(10, 0));
         // when
         ReservationTimeResponse response = ReservationTimeResponse.from(reservation);
         // then

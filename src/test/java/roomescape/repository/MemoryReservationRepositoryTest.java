@@ -30,8 +30,8 @@ class MemoryReservationRepositoryTest {
     @Test
     void createTest() {
         // given
-        ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10,0));
-        Reservation reservation = Reservation.createReservationWithoutId("멍구", LocalDate.of(2000,11,2),reservationTime);
+        ReservationTime reservationTime = ReservationTime.of(1L, LocalTime.of(10,0));
+        Reservation reservation = Reservation.of("멍구", LocalDate.of(2000,11,2),reservationTime);
 
         // when
         repository.create(reservation);
@@ -44,8 +44,8 @@ class MemoryReservationRepositoryTest {
     @Test
     void deleteByIdTest() {
         // given
-        ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10,0));
-        Reservation reservation = Reservation.createReservationWithoutId("멍구", LocalDate.of(2000,11,2),reservationTime);
+        ReservationTime reservationTime = ReservationTime.of(1L, LocalTime.of(10,0));
+        Reservation reservation = Reservation.of("멍구", LocalDate.of(2000,11,2),reservationTime);
         Reservation reservationEntity = repository.create(reservation);
 
         // when

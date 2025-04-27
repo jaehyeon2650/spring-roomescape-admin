@@ -75,8 +75,8 @@ public class JdbcReservationRepository implements ReservationRepository {
             Long timeId = rs.getLong("time_id");
             LocalDate reservationDate = LocalDate.parse(date);
             LocalTime reservationTime = LocalTime.parse(startAt);
-            ReservationTime time = ReservationTime.createReservation(timeId, reservationTime);
-            return Reservation.createReservationWithId(reservationId, name, reservationDate, time);
+            ReservationTime time = ReservationTime.of(timeId, reservationTime);
+            return Reservation.of(reservationId, name, reservationDate, time);
         };
     }
 }

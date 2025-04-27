@@ -17,8 +17,8 @@ class ReservationResponseTest {
     @DisplayName("Reservation DTO 변환 테스트")
     void reservationToDtoTest() {
         // given
-        ReservationTime reservationTime = ReservationTime.createReservation(1L, LocalTime.of(10, 0));
-        Reservation reservation = Reservation.createReservationWithId(1L, "코기", LocalDate.of(2000, 11, 2),
+        ReservationTime reservationTime = ReservationTime.of(1L, LocalTime.of(10, 0));
+        Reservation reservation = Reservation.of(1L, "코기", LocalDate.of(2000, 11, 2),
                 reservationTime);
         // when
         ReservationResponse response = ReservationResponse.from(reservation);
@@ -36,11 +36,11 @@ class ReservationResponseTest {
     @DisplayName("Reservations DTO 반환 테스트")
     void reservationsToDtoTest() {
         // given
-        ReservationTime reservationTime1 = ReservationTime.createReservation(1L, LocalTime.of(10, 0));
-        Reservation reservation1 = Reservation.createReservationWithId(1L, "코기", LocalDate.of(2000, 11, 2),
+        ReservationTime reservationTime1 = ReservationTime.of(1L, LocalTime.of(10, 0));
+        Reservation reservation1 = Reservation.of(1L, "코기", LocalDate.of(2000, 11, 2),
                 reservationTime1);
-        ReservationTime reservationTime2 = ReservationTime.createReservation(2L, LocalTime.of(11, 0));
-        Reservation reservation2 = Reservation.createReservationWithId(2L, "멍구", LocalDate.of(2000, 12, 2),
+        ReservationTime reservationTime2 = ReservationTime.of(2L, LocalTime.of(11, 0));
+        Reservation reservation2 = Reservation.of(2L, "멍구", LocalDate.of(2000, 12, 2),
                 reservationTime2);
         List<Reservation> reservations = List.of(reservation1, reservation2);
         // when

@@ -11,11 +11,11 @@ public class ReservationTime {
         this.startAt = startAt;
     }
 
-    public static ReservationTime createReservationTimeWithoutId(LocalTime startAt) {
+    public static ReservationTime of(LocalTime startAt) {
         return new ReservationTime(null, startAt);
     }
 
-    public static ReservationTime createReservation(Long id, LocalTime startAt) {
+    public static ReservationTime of(Long id, LocalTime startAt) {
         return new ReservationTime(id, startAt);
     }
 

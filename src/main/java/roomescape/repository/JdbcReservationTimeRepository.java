@@ -58,7 +58,7 @@ public class JdbcReservationTimeRepository implements ReservationTimeRepository 
             Long id = rs.getLong("id");
             String startAt = rs.getString("start_at");
             LocalTime time = LocalTime.parse(startAt);
-            return ReservationTime.createReservation(id, time);
+            return ReservationTime.of(id, time);
         };
     }
 }

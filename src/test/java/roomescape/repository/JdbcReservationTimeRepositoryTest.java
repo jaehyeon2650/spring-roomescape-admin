@@ -34,7 +34,7 @@ class JdbcReservationTimeRepositoryTest {
     @DisplayName("reservationTime 추가 테스트")
     void createTest() {
         // given
-        ReservationTime time = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
+        ReservationTime time = ReservationTime.of(LocalTime.of(11, 0));
         // when
         ReservationTime timeEntity = repository.create(time);
         // then
@@ -47,9 +47,9 @@ class JdbcReservationTimeRepositoryTest {
     @DisplayName("reservationTime 조회 테스트")
     void findById() {
         // given
-        ReservationTime time1 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
-        ReservationTime time2 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(12, 0));
-        ReservationTime time3 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(10, 0));
+        ReservationTime time1 = ReservationTime.of(LocalTime.of(11, 0));
+        ReservationTime time2 = ReservationTime.of(LocalTime.of(12, 0));
+        ReservationTime time3 = ReservationTime.of(LocalTime.of(10, 0));
         repository.create(time1);
         repository.create(time2);
         ReservationTime time3Entity = repository.create(time3);
@@ -63,9 +63,9 @@ class JdbcReservationTimeRepositoryTest {
     @DisplayName("전체 reservationTime 조회 테스트")
     void findAllReservationTimeTest() {
         // given
-        ReservationTime time1 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
-        ReservationTime time2 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(12, 0));
-        ReservationTime time3 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(10, 0));
+        ReservationTime time1 = ReservationTime.of(LocalTime.of(11, 0));
+        ReservationTime time2 = ReservationTime.of(LocalTime.of(12, 0));
+        ReservationTime time3 = ReservationTime.of(LocalTime.of(10, 0));
         repository.create(time1);
         repository.create(time2);
         repository.create(time3);
@@ -79,9 +79,9 @@ class JdbcReservationTimeRepositoryTest {
     @DisplayName("reservationTime 삭제 테스트")
     void deleteReservationTimeTest() {
         // given
-        ReservationTime time1 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(11, 0));
-        ReservationTime time2 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(12, 0));
-        ReservationTime time3 = ReservationTime.createReservationTimeWithoutId(LocalTime.of(10, 0));
+        ReservationTime time1 = ReservationTime.of(LocalTime.of(11, 0));
+        ReservationTime time2 = ReservationTime.of(LocalTime.of(12, 0));
+        ReservationTime time3 = ReservationTime.of(LocalTime.of(10, 0));
         repository.create(time1);
         repository.create(time2);
         ReservationTime time3Entity = repository.create(time3);
