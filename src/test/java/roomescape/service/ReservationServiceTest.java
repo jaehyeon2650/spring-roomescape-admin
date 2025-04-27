@@ -84,13 +84,6 @@ class ReservationServiceTest {
     }
 
     @Test
-    @DisplayName("예약 아이디가 유효하지 않으면 예외가 발생한다.")
-    void deleteReservation_NoTime() {
-        assertThatThrownBy(() -> reservationService.deleteReservation(1L))
-                .isInstanceOf(EmptyResultDataAccessException.class);
-    }
-
-    @Test
     @DisplayName("정상적으로 삭제를 한다.")
     void deleteReservationTest() {
         // given
@@ -125,13 +118,6 @@ class ReservationServiceTest {
                 () -> assertThat(allReservationTimes.get(0).id()).isNotNull(),
                 () -> assertThat(allReservationTimes.get(0).startAt()).isEqualTo("10:00")
         );
-    }
-
-    @Test
-    @DisplayName("삭제할때 유효하지 않은 예약 시간 아이디가 들어오면 예외가 발생한다.")
-    void deleteReservationTime_NoTime() {
-        assertThatThrownBy(() -> reservationService.deleteReservationTime(100L))
-                .isInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @Test

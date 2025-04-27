@@ -4,7 +4,6 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -45,11 +44,7 @@ public class JdbcReservationTimeRepository implements ReservationTimeRepository 
 
     @Override
     public void deleteById(Long id) {
-        int deleteCount = jdbcTemplate.update("delete from reservation_time where id = ?", id);
-
-        if (deleteCount == 0) {
-            throw new EmptyResultDataAccessException("해당 ID가 존재하지 않습니다.", 1);
-        }
+        jdbcTemplate.update("delete from reservation_time where id = ?", id);
     }
 
     private RowMapper<ReservationTime> reservationTimeRowMapper() {

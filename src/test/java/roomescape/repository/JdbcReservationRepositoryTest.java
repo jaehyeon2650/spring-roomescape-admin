@@ -1,7 +1,6 @@
 package roomescape.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import roomescape.model.Reservation;
 import roomescape.model.ReservationTime;
@@ -88,16 +86,5 @@ class JdbcReservationRepositoryTest {
 
         // then
         assertThat(repository.findAll()).isEmpty();
-    }
-
-    @Test
-    @DisplayName("없는 id로 삭제하려고 할 때 예외가 발생한다.")
-    void deleteByIdTest_exception() {
-        // given
-        Long id = 0L;
-
-        // when & then
-        assertThatThrownBy(() -> repository.deleteById(id))
-                .isInstanceOf(EmptyResultDataAccessException.class);
     }
 }

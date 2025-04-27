@@ -3,6 +3,7 @@ package roomescape.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.dao.EmptyResultDataAccessException;
 import roomescape.model.ReservationTime;
@@ -41,7 +42,9 @@ public class FakeReservationTimeRepository implements ReservationTimeRepository 
 
     @Override
     public void deleteById(Long id) {
-        ReservationTime findReservationTime = findById(id);
-        reservationTimes.remove(findReservationTime);
+        Optional<ReservationTime> findReservationTime = reservationTimes.stream()
+                .filter(reservationTime -> reservationTime.hasSameId(id))
+                .findAny();
+        findReservationTime.ifPresent(reservationTimes::remove);
     }
 }

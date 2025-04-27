@@ -35,13 +35,8 @@ public class RoomEscapeController {
     }
 
     @DeleteMapping("/reservations/{id}")
-    public ResponseEntity<Void> deleteReservation(@PathVariable("id") Long id) {
-        try {
-            reservationService.deleteReservation(id);
-            return ResponseEntity.ok().build();
-        } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public void deleteReservation(@PathVariable("id") Long id) {
+        reservationService.deleteReservation(id);
     }
 
     @PostMapping("/times")
