@@ -41,7 +41,7 @@ public class ReservationService {
     }
 
     public ReservationTimeResponse createReservationTime(ReservationTimeRequest request) {
-        ReservationTime time = ReservationTime.of(LocalTime.parse(request.getStartAt()));
+        ReservationTime time = ReservationTime.of(request.getStartAt());
         ReservationTime timeEntity = timeRepository.create(time);
         return ReservationTimeResponse.from(timeEntity);
     }
