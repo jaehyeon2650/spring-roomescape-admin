@@ -23,29 +23,48 @@ public class ConsoleRoomEscapeController {
     }
 
     public void run() {
-        outputView.printReservationInfo(reservationService.findAllReservations(),
-                reservationService.findAllReservationTimes());
+        printReservationsStatus();
         MenuOption option = inputView.getMenuOption();
         while (option != MenuOption.EXIT) {
-            if (option == MenuOption.RESERVATION_ADD) {
-                ReservationRequest request = inputView.getReservationAddRequest();
-                reservationService.createReservation(request);
+            if (option == MenuOption.RESERVATION_CREATE) {
+                createReservation();
             }
             if (option == MenuOption.RESERVATION_DELETE) {
-                Long deleteId = inputView.getDeleteReservationId();
-                reservationService.deleteReservation(deleteId);
+                deleteReservation();
             }
-            if (option == MenuOption.RESERVATION_TIME_ADD) {
-                ReservationTimeRequest request = inputView.getReservationTimeAddRequest();
-                reservationService.createReservationTime(request);
+            if (option == MenuOption.RESERVATION_TIME_CREATE) {
+                createReservationTime();
             }
             if (option == MenuOption.RESERVATION_TIME_DELETE) {
-                Long deleteId = inputView.getDeleteReservationTimeId();
-                reservationService.deleteReservationTime(deleteId);
+                deleteReservationTime();
             }
-            outputView.printReservationInfo(reservationService.findAllReservations(),
-                    reservationService.findAllReservationTimes());
+            printReservationsStatus();
             option = inputView.getMenuOption();
         }
+    }
+
+    private void deleteReservationTime() {
+        Long deleteId = inputView.getDeleteReservationTimeId();
+        reservationService.deleteReservationTime(deleteId);
+    }
+
+    private void createReservationTime() {
+        ReservationTimeRequest request = inputView.getReservationTimeAddRequest();
+        reservationService.createReservationTime(request);
+    }
+
+    private void deleteReservation() {
+        Long deleteId = inputView.getDeleteReservationId();
+        reservationService.deleteReservation(deleteId);
+    }
+
+    private void createReservation() {
+        ReservationRequest request = inputView.getReservationAddRequest();
+        reservationService.createReservation(request);
+    }
+
+    private void printReservationsStatus() {
+        outputView.printReservationInfo(reservationService.findAllReservations(),
+                reservationService.findAllReservationTimes());
     }
 }

@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 public enum MenuOption {
 
-    RESERVATION_ADD("1"),
+    RESERVATION_CREATE("1"),
     RESERVATION_DELETE("2"),
-    RESERVATION_TIME_ADD("3"),
+    RESERVATION_TIME_CREATE("3"),
     RESERVATION_TIME_DELETE("4"),
     EXIT("5");
 
