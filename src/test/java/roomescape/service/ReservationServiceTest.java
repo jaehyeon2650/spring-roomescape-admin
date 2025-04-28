@@ -26,7 +26,7 @@ class ReservationServiceTest {
     void beforeEach() {
         ReservationRepository reservationRepository = new FakeReservationRepository();
         ReservationTimeRepository reservationTimeRepository = new FakeReservationTimeRepository();
-        reservationTimeRepository.create(ReservationTime.of(LocalTime.of(10, 0)));
+        reservationTimeRepository.save(ReservationTime.of(LocalTime.of(10, 0)));
         reservationService = new ReservationService(reservationRepository, reservationTimeRepository);
     }
 
